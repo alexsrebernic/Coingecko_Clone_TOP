@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.input-header {
+  color: #828282;
+  border: 1px solid #e7e7e7;
+  border-radius: 2px;
+}
+
+.header-data {
+  border: 1px solid #dddddd;
+}
+/*# sourceMappingURL=main.css.map */
