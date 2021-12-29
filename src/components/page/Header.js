@@ -21,11 +21,41 @@ let Header = () => {
                     <Icon className='float-right' icon="radix-icons:magnifying-glass" color="#828282" width="20" height="25" />
                 </span>
             </div>
-            <div className='header-data w-full flex justify-evenly text-xs font-medium h-10 items-center'>
-                <span >Coins:</span>
-                <span >Exchanges:</span>
-                <span >Market Cap:</span>
-
+            <div className='header-data w-full flex justify-evenly text-xs font-medium h-10 items-center py-3'>
+            <div className='overflow-auto container  px-5 translate-y-2'>
+                    <div className='flex flex-row text-2xs pb-3 whitespace-nowrap'>
+                        <div className='mr-3 flex'>
+                            <span className='font-bold' >Coins</span>
+                            :
+                            <a href='/'>Example</a>
+                        </div>
+                        <div className='mr-3 flex'>
+                            <span className='font-bold' >Exchanges</span>
+                            :
+                            <a href='/'>Example</a>
+                        </div>
+                        <div className='mr-3 flex'>
+                            <span className='font-bold inline-block' >Market Cap</span>
+                            :
+                            <a href='/'>Example</a>
+                        </div>
+                        <div className='mr-3 flex'>
+                            <span className='font-bold' >24h Vol</span>
+                            :
+                            <a href='/'>Example</a>
+                        </div>
+                        <div className='mr-3 flex'>
+                            <span className='font-bold' >Dominance</span>
+                            :
+                            <a href='/'>Example</a>
+                        </div>
+                        <div className='mr-3 flex'>
+                            <span className='font-bold' >ETH Gas</span>
+                            :
+                            <a href='/'>Example</a>
+                        </div>
+                    </div>
+            </div>
             </div>
 
         </header>
