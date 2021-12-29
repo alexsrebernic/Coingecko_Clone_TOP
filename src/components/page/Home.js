@@ -27,11 +27,11 @@ const Home = () => {
                  <div className="">
                  <button className="button-table w-20 mr-2 "><span className="">USD</span></button>
                  <button className="button-table w-32  mr-2"><span className="">All Categories</span></button>
-                 <button className="button-table w-20"><span >Filter</span></button>
+                 <button className="filter-button button-table w-20"><span >Filter</span></button>
                  </div>
              </div>
              <hr className="my-3"></hr>
-             <div className="container-buttons">
+             <div className="container-buttons-filter">
                  <button className="button-table mr-2"><span className="m-3 ">All Hashing Algorithms</span></button>
                  <button className="button-table"><span>All Platforms</span></button>
              </div>
@@ -43,16 +43,18 @@ const Home = () => {
                         text-lg-normal 
                          mb-0 h-12">
                             <thead>
-                                <th></th>
-                                <th>#</th>
-                                <th>Coin</th>
-                                <th>Price</th>
-                                <th>1h</th>
-                                <th>24h</th>
-                                <th>7d</th>
-                                <th>24h volume</th>
-                                <th>Mkt Cap</th>
-                                <th>Last 7 days</th>
+                                <tr>
+                                    <th className="pt-2 w-4"></th>
+                                    <th className="w-8 ">#</th>
+                                    <th className="w-20 text-left">Coin</th>
+                                    <th className="w-24 text-right">Price</th>
+                                    <th className="w-14">1h</th>
+                                    <th className="w-16">24h</th>
+                                    <th>7d</th>
+                                    <th>24h volume</th>
+                                    <th>Mkt Cap</th>
+                                    <th>Last 7 days</th>
+                                </tr>
                             </thead>
                         </Table>
                     </div>

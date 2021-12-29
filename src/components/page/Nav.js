@@ -5,7 +5,7 @@ const Nav = () => {
         <div className="overflow-auto nowrap">
             <div >
                 <nav className="text-slate-500 navbar text-sm font-light flex justify-between whitespace-nowrap items-center h-14 ">
-                    <Link to="/" className="h-full item-nav-bar flex items-center">
+                    <Link to="/portfolio" className="h-full item-nav-bar flex items-center">
                         <Icon icon="emojione:star" width="20px"/>
                         <span  className=" ml-2 ">Portfolio</span>
                     </Link>
