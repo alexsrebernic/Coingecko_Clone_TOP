@@ -15,7 +15,7 @@ let Header = () => {
                     </div>
                 </div>
                 <span  className='input-header flex h-10  items-center justify-between py-1 px-3'>
-                    <span>
+                    <span className='font-light '>
                         Search
                     </span>
                     <Icon className='float-right' icon="radix-icons:magnifying-glass" color="#828282" width="20" height="25" />
