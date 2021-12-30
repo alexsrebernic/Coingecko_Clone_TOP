@@ -1,8 +1,11 @@
-import { Table } from "react-bootstrap"
+import TableHome from "./TableHome"
 import Nav from "./Nav"
-const Home = () => {
+import {useState} from 'react'
+import Pagination from 'react-bootstrap/Pagination'
+const Home = (props) => {
+    const [paginated,setPaginated] = useState(1)
     return(
-        <div className="container px-5">
+        <div id="home" className="container px-5">
          <Nav/>
          <div className="gecko-table-container">
              <div>
@@ -35,32 +38,7 @@ const Home = () => {
                  <button className="button-table mr-2"><span className="m-3 ">All Hashing Algorithms</span></button>
                  <button className="button-table"><span>All Platforms</span></button>
              </div>
-             <div className="coingecko-table">
-                 <div className="relative">
-                    <div className="table-responsive">
-                        <Table className="
-                        table text-sm 
-                        text-lg-normal 
-                         mb-0 h-12">
-                            <thead>
-                                <tr>
-                                    <th className="pt-2 w-4"></th>
-                                    <th className="w-8 ">#</th>
-                                    <th className="w-20 text-left">Coin</th>
-                                    <th className="w-24 text-right">Price</th>
-                                    <th className="w-14">1h</th>
-                                    <th className="w-16">24h</th>
-                                    <th>7d</th>
-                                    <th>24h volume</th>
-                                    <th>Mkt Cap</th>
-                                    <th>Last 7 days</th>
-                                </tr>
-                            </thead>
-                        </Table>
-                    </div>
-                 </div>
-             </div>
-           
+           <TableHome coins={props.coins}/>
          </div>
         </div>
         

@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap"
 import { Table } from "react-bootstrap"
 const Portfolio = () => {
     return(
-        <div>
+        <div id="portfolio">
             <div className="filter-menu pt-4 pb-2">
                 <div className="container px-4">
                     <div className="flex items-center row justify-between">
