@@ -1,11 +1,14 @@
 import { Icon } from '@iconify/react';
-let Header = () => {
+import { useEffect, useState } from 'react';
+import Sidebar from './Sidebar';
+let Header = (props) => {
+  
     return(
         <header>
             <div className='w-full h-28 flex flex-col justify-center py-2 px-4'>
                 <div className='flex justify-between'>
                     <div >
-                        <Icon className='cursor-pointer' icon="heroicons-outline:menu"         width="30" height="40" />
+                        <Icon onClick={props.setSideBar} className='cursor-pointer' icon="heroicons-outline:menu"         width="30" height="40" />
                     </div>
                         <img className='h-9 cursor-pointer' alt='logo' src={require('/home/alexsrebernic/Alex/Programacion/Projects/projectOdinJsPath/coingecko-clone-top/src/img/8HhyujVSxqve4ffxvG3t_ip.bitcointalk.org.png')}>
                     </img>
@@ -57,8 +60,8 @@ let Header = () => {
                     </div>
             </div>
             </div>
-
         </header>
-    )
-}
+        )
+    }
+
 export default Header
