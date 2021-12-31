@@ -1,9 +1,7 @@
 import TableHome from "./TableHome"
 import Nav from "./Nav"
-import {useState} from 'react'
-import Pagination from 'react-bootstrap/Pagination'
+
 const Home = (props) => {
-    const [paginated,setPaginated] = useState(1)
     return(
         <div id="home" className="container px-5">
          <Nav/>
@@ -39,6 +37,9 @@ const Home = (props) => {
                  <button className="button-table"><span>All Platforms</span></button>
              </div>
            <TableHome coins={props.coins}/>
+           <div>
+          
+           </div>
          </div>
         </div>
         

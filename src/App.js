@@ -4,6 +4,7 @@ import Home from "./components/page/Home";
 import Portfolio from "./components/page/Portfolio";
 import Sidebar from "./components/page/Sidebar";
 import { useState,useEffect } from "react";
+import Coin from "./components/page/CoinPage";
 import Footer from "./components/page/Footer";
 import {getAPIStatus,getCoinList,getCoinMarkets} from './components/services/CoinServices'
 function App() {
@@ -42,7 +43,6 @@ function App() {
       setCoinMarket(dataCoinMarket)
     })()
   },[])
-  console.log(coinsMarket)
 
   return (
     <div id="app">
@@ -52,7 +52,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home coins={coinsMarket}/>}/>
       <Route path="/portfolio" element={<Portfolio/>}/>
-      <Route path="/coins/:id" />
+      <Route path="/coins/:id" element={<Coin coins={coinsMarket}/>}/>
 
     </Routes>
     <Footer/>
