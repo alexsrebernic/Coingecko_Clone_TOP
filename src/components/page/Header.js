@@ -18,7 +18,7 @@ let Header = (props) => {
                         <Icon className='mb-1 cursor-pointer' icon="carbon:user-filled" color="black" width="30" height="40"/>
                     </div>
                 </div>
-                <span  className='input-header flex h-10 cursor-pointer  items-center justify-between py-1 px-3'>
+                <span onClick={props.setSearch}  className='input-header flex h-10 cursor-pointer  items-center justify-between py-1 px-3'>
                     <span className='font-light '>
                         Search
                     </span>
