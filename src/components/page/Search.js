@@ -33,7 +33,7 @@ const Search = (props) => {
 
                     <div className="w-full h-10 px-3 py-3  flex items-center">
                         <span className="font-semibold text-sm">
-                            {coinName === ""? <span>'Trending Search '<Icon icon="fxemoji:fire" /></span>:'Cryptocurrencies'}
+                            {coinName === ""? <span className="flex">Trending Search<Icon icon="fxemoji:fire" /></span>:'Cryptocurrencies'}
                         </span>
                     </div>
                     <hr className="py-2"></hr>

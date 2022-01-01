@@ -71,7 +71,7 @@ function App() {
   },[])
 
   return (
-    <div id="app">
+    <div id="app" >
     <HashRouter>
     <Search trendingCoins={trendingCoins} coins={coinsMarket} setSearch={setSearch}/>
     <Sidebar setSideBar={setSideBar}/>

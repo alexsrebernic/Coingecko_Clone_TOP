@@ -23,7 +23,6 @@ const TableHome =  (props) => {
                                <th className="w-16 text-right  p-2">7d</th>
                                <th className="w-32 text-right  p-2">Total volume</th>
                                <th className="w-28 text-right  p-2">Mkt Cap</th>
-                               <th className="w- ">Last 7 days</th>
                            </tr>
                        </thead>
                        <tbody>
@@ -47,7 +46,6 @@ const TableHome =  (props) => {
                                            style={{color:object.price_change_percentage_7d_in_currency > 0? "green" : "red"}}>{parseFloat(object.price_change_percentage_7d_in_currency).toFixed(2)}%</td>
                                            <td className="text-right  p-2">${object.total_volume}</td>
                                            <td className="text-right  p-2">${object.market_cap}</td>
-                                           <td className="text-right  p-2"></td>
                                        </tr>
                                )
                            })}

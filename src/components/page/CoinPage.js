@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { Icon } from "@iconify/react"
 import { useEffect, useState } from "react"
-import { getCoinTickers } from "../services/CoinServices"
+import ChartCoin from "./ChartCoin"
 const CoinPage = (props) => {
-    let [coinTickers,setCoinTickers] = useState([])
     let [amountCoin,setAmountCoin] = useState("")
     let [amountUSD,setAmountUSD] = useState("")
 
@@ -22,22 +21,25 @@ const CoinPage = (props) => {
     const coin = props.coins.filter(object => {
         return object.id === id
     }).pop()
+   
     useEffect(() => {
-        ( async () => {
-            let tickers = getCoinTickers(id)
-             setCoinTickers(tickers)
-        })()
-    },[])
-    useEffect(() => {
+        if(coin){
         setAmountUSD(coin.current_price*amountCoin)
 
-    },[amountCoin])
+        }
+       
+    },[amountCoin,coin])
     useEffect(() => {
+        if(coin){
         setAmountCoin(amountUSD/coin.current_price)
 
-    },[amountUSD])
+        }
+      
+    },[amountUSD,coin])
     return(
         <div>
+        {coin !== undefined?(
+            <div>
             <div className="filter-menu pt-4 pb-2">
                 <div className="container px-4">
                     <div className="flex items-center row justify-between">
@@ -62,7 +64,7 @@ const CoinPage = (props) => {
                             </div>
                            
                             <div className="flex text-gray-900 w-full font-bold items-center mt-3 text-2xl">
-                                <img className="w-8" src={coin.image}></img>
+                                <img alt="logo coin" className="w-8" src={coin.image}></img>
                                 <h1 className="pl-3">{coin.name} ({coin.symbol.toUpperCase()})</h1>
                             </div>
                             <div className="w-full">
@@ -130,6 +132,17 @@ const CoinPage = (props) => {
                     </div>
                 </div>
             </div>
+                <div>
+                    <ChartCoin id={id}/>
+                </div>
+            </div>
+        ):(
+            <div>
+                <h1>Loading...</h1>
+            </div>
+        )}
+
+          
         </div>
     )
 }
