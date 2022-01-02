@@ -125,4 +125,26 @@ hr {
   font-weight: bold;
   border-bottom: 2px solid #8dc647;
 }
+
+#sideBar {
+  display: none;
+  width: 100%;
+  height: 53.9375rem;
+}
+
+#array100200 {
+  display: none;
+}
+
+#conversor-container {
+  background-color: #eeeeee;
+}
+
+#search {
+  display: none;
+}
+
+#login {
+  display: none;
+}
 /*# sourceMappingURL=main.css.map */

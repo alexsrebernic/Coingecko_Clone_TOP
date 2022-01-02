@@ -3,7 +3,7 @@ import Nav from "./Nav"
 
 const Home = (props) => {
     return(
-        <div className="w-full md:flex" id="container-home">
+        <div className="w-full md:flex md:justify-center" id="container-home">
             <div id="home" className="container px-5 w-full">
             <Nav/>
             <div className="gecko-table-container">

@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-
+import { Link } from 'react-router-dom';
 let Header = (props) => {
   
     return(
@@ -12,8 +12,8 @@ let Header = (props) => {
                         <img className='h-9 cursor-pointer' alt='logo' src={require('/home/alexsrebernic/Alex/Programacion/Projects/projectOdinJsPath/coingecko-clone-top/src/img/8HhyujVSxqve4ffxvG3t_ip.bitcointalk.org.png')}>
                     </img>
                     <div className='flex items-center '>
-                        <Icon  className='pr-2 cursor-pointer mb-1' icon="bi:bookmark-fill" width="30" height="25"/>
-                        <Icon className='mb-1 cursor-pointer' icon="carbon:user-filled" color="black" width="30" height="40"/>
+                        <Icon id='portfolioHeaderButton'  className='pr-2 cursor-pointer mb-1' icon="bi:bookmark-fill" width="30" height="25"/>
+                        <Icon onClick={props.setSignIn} id='userButton' className='mb-1 cursor-pointer' icon="carbon:user-filled" color="black" width="30" height="40"/>
                     </div>
                 </div>
                 <span onClick={props.setSearch}  className='input-header flex h-10 cursor-pointer  items-center justify-between py-1 px-3'>

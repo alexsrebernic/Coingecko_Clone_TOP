@@ -8,9 +8,12 @@ import Coin from "./components/page/CoinPage";
 import Footer from "./components/page/Footer";
 import {getAPIStatus,getCoinList,getCoinMarkets,getTrendingCoins} from './components/services/CoinServices'
 import Search from "./components/page/Search";
+import SignIn from "./components/page/SignIn";
+import { initFirebaseAuth } from "./components/services/firebaseServices";
 function App() {
   const [isSideBarDisplaying,setSideBarDisplay] = useState(false)
-  const [isSearchDisplaying,setSearchDisplaying] = useState(false)
+  const [isSearchDisplaying,setSearchDisplay] = useState(false)
+  const [iSignInDisplaying,setSignInDisplay] = useState(false)
   const [apiStatus,setStatus] = useState(false)
   const [coinsList,setCoinList] = useState([])
   const [coinsMarket,setCoinMarket] = useState([])
@@ -18,9 +21,9 @@ function App() {
 
   const setSearch = () => {
     if(isSearchDisplaying === false){
-      setSearchDisplaying(true)
+      setSearchDisplay(true)
     } else if (isSearchDisplaying){
-      setSearchDisplaying(false)
+      setSearchDisplay(false)
     }
   }
   const setSideBar = () => {
@@ -30,30 +33,47 @@ function App() {
       setSideBarDisplay(false)
       }
   }
+  const setSignIn = () => {
+    if(iSignInDisplaying === false){
+      setSignInDisplay(true)
+    } else if(iSignInDisplaying){
+      setSignInDisplay(false)
+    }
+  }
   useEffect(() => {
     const app = document.querySelector("#app")
     const sidebar = document.querySelector("#sideBar")
     const search = document.querySelector("#search")
+    const login = document.querySelector("#signin")
     if(isSideBarDisplaying){
       sidebar.style.display = "flex"
-      app.childNodes[2].style.display = "none"
       app.childNodes[3].style.display = "none"
-    }  else if(!(isSearchDisplaying) && !(isSideBarDisplaying)){
+      app.childNodes[4].style.display = "none"
+    }  else if(!(isSearchDisplaying) && !(isSideBarDisplaying) && !(iSignInDisplaying)){
         sidebar.style.display = "none"
-        app.childNodes[2].style.display = "block"
         app.childNodes[3].style.display = "block"
+        app.childNodes[4].style.display = "block"
     }
     if(isSearchDisplaying){
       search.style.display = "block"
-      app.childNodes[2].style.display = "none"
       app.childNodes[3].style.display = "none"
+      app.childNodes[4].style.display = "none"
 
-    } else if(!(isSearchDisplaying) && !(isSideBarDisplaying)){
+    } else if(!(isSearchDisplaying) && !(isSideBarDisplaying) && !(iSignInDisplaying)){
       search.style.display = "none"
-      app.childNodes[2].style.display = "block"
       app.childNodes[3].style.display = "block"
+      app.childNodes[4].style.display = "block"
+    } 
+    if(iSignInDisplaying){
+      login.style.display = "block"
+      app.childNodes[3].style.display = "none"
+      app.childNodes[4].style.display = "none"
+    } else if(!(isSearchDisplaying) && !(isSideBarDisplaying) && !(iSignInDisplaying)){
+      login.style.display = "none"
+      app.childNodes[3].style.display = "block"
+      app.childNodes[4].style.display = "block"
     }
-  },[isSideBarDisplaying,isSearchDisplaying])
+  },[isSideBarDisplaying,isSearchDisplaying,iSignInDisplaying])
   useEffect(() => {
     (async() => {
       Promise.all([getTrendingCoins(),getCoinMarkets()]).then((data) => {
@@ -69,13 +89,14 @@ function App() {
       setCoinList(dataCoinList)
     })()
   },[])
-
+   initFirebaseAuth()
   return (
     <div id="app" >
     <HashRouter>
+    <SignIn  setSignIn={setSignIn}/>
     <Search trendingCoins={trendingCoins} coins={coinsMarket} setSearch={setSearch}/>
     <Sidebar setSideBar={setSideBar}/>
-    <Header setSearch={setSearch} setSideBar={setSideBar}/>
+    <Header setSignIn={setSignIn} setSearch={setSearch} setSideBar={setSideBar}/>
     <Routes>
       <Route path="/" element={<Home coins={coinsMarket}/>}/>
       <Route path="/portfolio" element={<Portfolio/>}/>
