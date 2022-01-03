@@ -4,9 +4,9 @@ import { Button } from "react-bootstrap"
 import { Table } from "react-bootstrap"
 const Portfolio = () => {
     return(
-        <div id="portfolio">
+        <div id="portfolio" className="xl:mx-80">
             <div className="filter-menu pt-4 pb-2">
-                <div className="container px-4">
+                <div className="container px-4 xl:px-0">
                     <div className="flex items-center row justify-between">
                         <div className="py-2 w-48 text-sm">
                             <div className="flex flex-row items-center font-light">
@@ -23,13 +23,13 @@ const Portfolio = () => {
                     </div>
                 </div>
             </div>
-            <div className="container px-4">
-                <div className="h-32 py-5">
+            <div className="container px-4 xl:px-0">
+                <div className="h-32 py-5 xl:flex xl:justify-between">
                     <div className="flex items-center">
                         <h1 className="text-2xl font-semibold ">My Portfolio</h1>
                         <Icon icon="bx:bx-chevron-down" width="20" height="20" rotate={2} vFlip={true} />
                     </div>
-                    <div className="flex mt-4 items-center">
+                    <div className="flex mt-4 items-center xl:mt-0">
                         <a className="p-2"><Icon icon="fa-regular:eye" width="35" height="30" rotate={2} vFlip={true} /></a>
                         <a className="p-2">
                         <Icon icon="bx:bxs-pie-chart-alt-2" width="35" height="30" rotate={2} vFlip={true} />
@@ -43,7 +43,7 @@ const Portfolio = () => {
                         <button className="w-32 h-12 bg-lime-500 text-white rounded "><span className="font-light">Add New Coin</span></button>
                     </div>
                 </div>
-                <div className="portfolio-overview flex flex-col">
+                <div className="portfolio-overview flex flex-col xl:flex-row">
                 <span className="mr-2 p-3 mb-4 inline-block shadow-lg h-20 flex flex-col items-center font-light">
                     <span className="text-xl">$0.00</span>
                     <div>
@@ -78,7 +78,7 @@ const Portfolio = () => {
                         <Table className="
                         table text-sm 
                         text-lg-normal 
-                         mb-0 h-12">
+                         mb-0 h-12 xl:w-full">
                             <thead>
                                 <tr>
                                     <th className="pt-2 w-4"></th>

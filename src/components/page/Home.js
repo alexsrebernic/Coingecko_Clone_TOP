@@ -3,13 +3,13 @@ import Nav from "./Nav"
 
 const Home = (props) => {
     return(
-        <div className="w-full md:flex md:justify-center" id="container-home">
-            <div id="home" className="container px-5 w-full">
+        <div className=" md:mx-14  xl:mx-80" id="container-home">
+            <div id="home" className="container px-5 w-full xl:px-0">
             <Nav/>
             <div className="gecko-table-container">
                 <div>
-                    <div className="w-full h-20 f text-2xl mt-2 font-semibold">
-                        <h1 className="mr-2 mb-2">Criptocurrency Prices by Market Cap</h1>
+                    <div className="w-full h-20 f text-2xl mt-2 font-semibold xl:h-10">
+                        <h1 className="mr-2 mb-2">Cryptocurrency Prices by Market Cap</h1>
                     </div>
                     <div>
                         <p className="text-gray-500 text-sm">The global criptocurrency market cap today is Trillion, a change in the last 24 hours.<a className="ml-1" href="#">Read more</a></p>
@@ -38,9 +38,7 @@ const Home = (props) => {
                     <button className="button-table"><span>All Platforms</span></button>
                 </div>
             <TableHome coins={props.coins}/>
-            <div>
-            
-            </div>
+           
             </div>
             </div>
         </div>

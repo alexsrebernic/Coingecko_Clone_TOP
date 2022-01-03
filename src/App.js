@@ -6,10 +6,11 @@ import Sidebar from "./components/page/Sidebar";
 import { useState,useEffect } from "react";
 import Coin from "./components/page/CoinPage";
 import Footer from "./components/page/Footer";
-import {getAPIStatus,getCoinList,getCoinMarkets,getTrendingCoins} from './components/services/CoinServices'
+import {getAPIStatus,getCoinList,getCoinMarkets,getTrendingCoins,getCategories,getExchanges} from './components/services/CoinServices'
 import Search from "./components/page/Search";
 import SignIn from "./components/page/SignIn";
 import { initFirebaseAuth } from "./components/services/firebaseServices";
+import Categories from "./components/page/Categories";
 function App() {
   const [isSideBarDisplaying,setSideBarDisplay] = useState(false)
   const [isSearchDisplaying,setSearchDisplay] = useState(false)
@@ -18,6 +19,9 @@ function App() {
   const [coinsList,setCoinList] = useState([])
   const [coinsMarket,setCoinMarket] = useState([])
   const [trendingCoins,setTrendingCoins] = useState([])
+  const [categories,setCategories] = useState([])
+  const [exchanges,setExchanges] = useState([])
+
 
   const setSearch = () => {
     if(isSearchDisplaying === false){
@@ -76,17 +80,13 @@ function App() {
   },[isSideBarDisplaying,isSearchDisplaying,iSignInDisplaying])
   useEffect(() => {
     (async() => {
-      Promise.all([getTrendingCoins(),getCoinMarkets()]).then((data) => {
+      Promise.all([getTrendingCoins(),getCoinMarkets(),getExchanges(),getCategories()]).then((data) => {
       setTrendingCoins(data[0])
       setCoinMarket(data[1])
+      setExchanges(data[2])
+      setCategories(data[3])
         
       })
-      let dataApiStatus = await getAPIStatus()
-      let dataCoinList = await getCoinList()
-      let dataCoinMarket = await getCoinMarkets()
-      let dataTrendingCoins = await getTrendingCoins()
-      setStatus(dataApiStatus)
-      setCoinList(dataCoinList)
     })()
   },[])
    initFirebaseAuth()
@@ -96,10 +96,11 @@ function App() {
     <SignIn  setSignIn={setSignIn}/>
     <Search trendingCoins={trendingCoins} coins={coinsMarket} setSearch={setSearch}/>
     <Sidebar setSideBar={setSideBar}/>
-    <Header setSignIn={setSignIn} setSearch={setSearch} setSideBar={setSideBar}/>
+    <Header trendingCoins={trendingCoins} coins={coinsMarket} setSignIn={setSignIn} setSearch={setSearch} setSideBar={setSideBar}/>
     <Routes>
       <Route path="/" element={<Home coins={coinsMarket}/>}/>
       <Route path="/portfolio" element={<Portfolio/>}/>
+      <Route path="/categories" element={<Categories categories={categories}/>}/>
       <Route path="/coins/:id" element={<Coin coins={coinsMarket}/>}/>
 
     </Routes>
