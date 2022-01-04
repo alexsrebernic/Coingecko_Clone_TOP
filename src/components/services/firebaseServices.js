@@ -1,7 +1,7 @@
 import firebaseConfig from '../../firebase-config';
-import { createSlice, configureStore } from '@reduxjs/toolkit'
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set,onValue,get,child } from "firebase/database";
+import store from '../redux/store';
 import {
     getAuth,
     onAuthStateChanged,
@@ -9,101 +9,119 @@ import {
     signInWithPopup,
     signOut,
   } from 'firebase/auth';
-import { useEffect } from 'react';
+
+import {setUid,setArrayOfFavouriteCoins}  from '../redux/UserInfo';
+
+
 
 const app = initializeApp(firebaseConfig)
-const database = getDatabase(app);
 
+// AUTH
+const database = getDatabase(app);
 const signInUser = async () =>{
  let provider = new GoogleAuthProvider()
  await signInWithPopup(getAuth(),provider)
 };
-
 const signOutUser = async () => {
   signOut(getAuth())
 }
 const initFirebaseAuth = () => {
-  onAuthStateChanged(getAuth(),AuthStateObserver)
+  onAuthStateChanged(getAuth(),useAuthStateObserver)
 }
-
-
-
-const AuthStateObserver =  (user) => {
-  const userMenu = document.querySelector("#usermenu")
-  const userSignIn = document.querySelector("#signincontainer")
-  const portfolioButton = document.querySelector("#toportfolioxl")
-  const loginPortfolio = document.querySelector("#loginportfoliobuttonxl")
-  const userButton = document.querySelector("#userButton")
-  const signInUser = document.querySelector("#textsignin")
+const useAuthStateObserver =  (user) => {
   if (user) { // User is signed in!
+    store.dispatch(setUid(user.uid))
     checkUserInDatabase(user.uid)
-    console.log(user.uid)
-    
-    userSignIn.style.display = "none"
-    userMenu.style.display = "block"
-    signInUser.style.display = "none"
-    userButton.style.display = "block"
-    portfolioButton.style.display ="block"
-    loginPortfolio.style.display = "none"
-    return user.uid
+    getUserInfo(user.uid)
   } else { // User is signed out!
-    
-    userSignIn.style.display = "block"
-    userMenu.style.display = "none"
-    signInUser.style.display = "block"
-    userButton.style.display = "none"
-    portfolioButton.style.display ="none"
-    loginPortfolio.style.display = "block"
   }
 }
-const updateArrayOfFavouritesCoins = (array,userId) => {
+
+//DATABASE
+const updateArrayOfFavouritesCoins = (array,userUid) => {
+  console.log("updating array with", array,userUid)
   const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
+  set(ref(db, 'users/' + userUid), {
     isInDataBase:true,
     arrayOfFavouritesCoins: array
   });
 } 
 
-const writeUserData = (userId) => {
+const writeUserData = (userUid) => {
   const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
+  set(ref(db, 'users/' + userUid), {
     isInDataBase:true,
   });
 }
-const checkUserInDatabase = (userId) =>  {
+const checkUserInDatabase = (userUid) =>  {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+    get(child(dbRef, `users/${userUid}`)).then((snapshot) => {
     if (snapshot.exists()) {
       return 
     } else {
-    writeUserData(userId)
+    writeUserData(userUid)
     }
   }).catch((error) => {
     console.error(error);
   });
 }
-const setFavouriteCoinInDB = (coin,userId) => {
+const setFavouriteCoinInDB = (coin,userUid) => {
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+  get(child(dbRef, `users/${userUid}`)).then((snapshot) => {
   if (snapshot.exists()) {
+    console.log(snapshot.val())
     if(snapshot.val().arrayOfFavouritesCoins){
       let array = [...snapshot.val().arrayOfFavouritesCoins]
-      array.concat(coin)
-      updateArrayOfFavouritesCoins(array,userId)
+      array.push(coin)
+      updateArrayOfFavouritesCoins(array,userUid)
     } else {
       let array = []
-      array.concat(coin)
-      updateArrayOfFavouritesCoins(array,userId)
+      array.push(coin)
+      updateArrayOfFavouritesCoins(array,userUid)
     }
   } else {
-  console.log("is not in database")
-  writeUserData(userId)
+  writeUserData(userUid)
   let array = []
   array.concat(coin)
-  updateArrayOfFavouritesCoins(array,userId)
+  updateArrayOfFavouritesCoins(array,userUid)
   }
 }).catch((error) => {
   console.error(error);
 });
 }
-export {signInUser,signOutUser,initFirebaseAuth,AuthStateObserver,setFavouriteCoinInDB}
+
+const removeFavouriteCoinInDB = (coinId,userUid) => {
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `users/${userUid}`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    let array = [...snapshot.val().arrayOfFavouritesCoins]
+    let newArray = array.filter((coin) => {
+      return coin !== coinId
+    })
+    updateArrayOfFavouritesCoins(newArray,userUid)
+  } else {
+    throw Error("Something go wrong with the page")
+  }
+}).catch((error) => {
+  console.error(error);
+});
+}
+const getUserInfo = (userUid) => {
+  if(userUid === null) return 
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `users/${userUid}`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    if(snapshot.val().arrayOfFavouritesCoins){
+      store.dispatch(setArrayOfFavouriteCoins(snapshot.val().arrayOfFavouritesCoins))
+    } else {
+      return
+    }
+  } else {
+    throw Error("Something go wrong with the page")
+  }
+}).catch((error) => {
+  console.error(error);
+});
+}
+
+export {signInUser,signOutUser,initFirebaseAuth,setFavouriteCoinInDB,removeFavouriteCoinInDB,getUserInfo}

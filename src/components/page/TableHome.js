@@ -1,23 +1,44 @@
 import { Table } from "react-bootstrap"
 import { Icon } from "@iconify/react"
 import { Link } from "react-router-dom"
-import { setFavouriteCoinInDB,signInUser } from "../services/firebaseServices"
+import { setFavouriteCoinInDB,signInUser,removeFavouriteCoinInDB } from "../services/firebaseServices"
 import { useEffect, useState } from "react"
+import store from "../redux/store"
+import { setArrayOfFavouriteCoins } from "../redux/UserInfo"
 const TableHome =  (props) => {
-  
+    const [uid,setUidUser] = useState(null)
+    const [arrayOfFavorites,setArrayOfFavorites] = useState([])
+    let [coinsSelected,setCoinsSelected] = useState([])
+    useEffect(() => {
+        store.subscribe((data) =>{
+            setUidUser(store.getState().user.uid)
+            setArrayOfFavorites(store.getState().user.arrayOfFavouriteCoins)
+        } )
+        for (let l = 0 ; l < props.coins.length ; l++){
+            let array = []
+            arrayOfFavorites.some((name) => {
+                return setCoinsSelected((prevState) => { return prevState.push(name === props.coins[l].id)})
+            })
+            console.log(array)
+        setCoinsSelected(array)
+
+        }
+    },)
     const favoriteCoin = (e) => {
-        let text = e.target.id.substr(-8,8)
-        if(text !== "selected"){
-            let previousStar = document.getElementById(e.target.id)
-            previousStar.style.display = "none"
-            let newStar = document.getElementById(e.target.id + "selected")
-            newStar.style.display = "block"
+        let coindId = e.target.id.substr(-8,8)
+        if(coindId !== "selected"){
+            let notClickedStar = document.getElementById(e.target.id)
+            notClickedStar.style.display = "none"
+            let clickedStar = document.getElementById(e.target.id + "selected")
+            clickedStar.style.display = "block"
+            setFavouriteCoinInDB(e.target.id,uid)
         }else {
-            let idOfPreviousStar = e.target.id.slice(0,-8)
-            let previousStar = document.getElementById(idOfPreviousStar)
-            let newStar = document.getElementById(e.target.id)
-            previousStar.style.display = "block"
-            newStar.style.display = "none"
+            let idNotClickedStar = e.target.id.slice(0,-8)
+            let notClickedStar = document.getElementById(idNotClickedStar)
+            let clickedStar = document.getElementById(e.target.id)
+            notClickedStar.style.display = "block"
+            clickedStar.style.display = "none"
+            removeFavouriteCoinInDB(idNotClickedStar,uid)
         }
        
     }
@@ -54,8 +75,46 @@ const TableHome =  (props) => {
                                return(
                                        <tr  className="py-6 border-b h-14"  key={index}>
                                            <td >
-                                           <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer" icon="akar-icons:star" width="15" height="15" />
-                                           <Icon className="hidden" onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" /></td>
+                                            {uid === null?(
+                                                <div>
+                                                <Icon onClick={signInUser} className="cursor-pointer" icon="akar-icons:star" width="15" height="15" />
+                                                </div>
+                                            ):(
+                                            <div>
+
+                                            {arrayOfFavorites !== null?(
+                                                <div>
+
+                                                {arrayOfFavorites.map(coinName => {
+                                                    if(coinName === object.id){
+                                                        return(
+                                                            <div className="w-full">
+                                                                <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer hidden" icon="akar-icons:star" width="15" height="15" />
+                                                                <Icon className="cursor-pointer"  onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" />
+                                                            </div>
+                                                        )
+                                                    } else {
+                                                        return(
+                                                            <div>
+                                                            <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer" icon="akar-icons:star" width="15" height="15" />
+                                                            <Icon className="hidden cursor-pointer" onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" />
+                                                            </div>
+                                                        )
+                                                    }
+                                                })}
+                                                </div>
+                                            ):(
+                                                
+                                                <div>
+                                                <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer" icon="akar-icons:star" width="15" height="15" />
+                                            <Icon className="hidden" onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" />
+                                                </div>
+                                            )}
+                                            
+                                            
+                                            </div>
+                                            )}
+                                           </td>
                                            <td className="text-left  w-2 p-1">{index + 1}</td>
                                            <td className="flex p-3 justify-between">
                                                <Link to={`/coins/${object.id}`} className="flex justify-between w-full">
