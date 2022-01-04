@@ -202,4 +202,8 @@ hr {
 .search-box {
   z-index: 5;
 }
+
+svg path {
+  pointer-events: none;
+}
 /*# sourceMappingURL=main.css.map */

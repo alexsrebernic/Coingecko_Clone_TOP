@@ -1,7 +1,26 @@
 import { Table } from "react-bootstrap"
 import { Icon } from "@iconify/react"
 import { Link } from "react-router-dom"
+import { setFavouriteCoinInDB,signInUser } from "../services/firebaseServices"
+import { useEffect, useState } from "react"
 const TableHome =  (props) => {
+  
+    const favoriteCoin = (e) => {
+        let text = e.target.id.substr(-8,8)
+        if(text !== "selected"){
+            let previousStar = document.getElementById(e.target.id)
+            previousStar.style.display = "none"
+            let newStar = document.getElementById(e.target.id + "selected")
+            newStar.style.display = "block"
+        }else {
+            let idOfPreviousStar = e.target.id.slice(0,-8)
+            let previousStar = document.getElementById(idOfPreviousStar)
+            let newStar = document.getElementById(e.target.id)
+            previousStar.style.display = "block"
+            newStar.style.display = "none"
+        }
+       
+    }
     function separator(numb) {
         var str = numb.toString().split(".");
         str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -34,7 +53,9 @@ const TableHome =  (props) => {
                            {props.coins.map((object,index) => {
                                return(
                                        <tr  className="py-6 border-b h-14"  key={index}>
-                                           <td ><Icon id={object.id} className="cursor-pointer" icon="akar-icons:star" width="15" height="15" /></td>
+                                           <td >
+                                           <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer" icon="akar-icons:star" width="15" height="15" />
+                                           <Icon className="hidden" onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" /></td>
                                            <td className="text-left  w-2 p-1">{index + 1}</td>
                                            <td className="flex p-3 justify-between">
                                                <Link to={`/coins/${object.id}`} className="flex justify-between w-full">

@@ -44,7 +44,7 @@ let Header = (props) => {
                         </Link>
                         <span id='textsignin' onClick={signInUser} className="hover:text-lime-500 cursor-pointer text-sm">Sign In</span>
                         <li id='productsmenu' className='cursor-pointer text-sm hover:text-lime-500 dropdown z-10'>
-                                <Icon  id='userButton' className='mb-1 cursor-pointer hover:text-lime-500' icon="carbon:user-filled" color="black" width="25" height="20"/>
+                                <Icon  id='userButtonXl' className='mb-1 cursor-pointer hover:text-lime-500' icon="carbon:user-filled" color="black" width="25" height="20"/>
 
                                 <div className='dropdown-content z-10'>
                                     <div>
@@ -255,7 +255,7 @@ let Header = (props) => {
                         <Link to="/portfolio">
                             <Icon  className='pr-2 cursor-pointer mb-1' icon="bi:bookmark-fill" width="30" height="25"/>
                         </Link>
-                        <Icon onClick={props.setLogin} id='userButton' className='mb-1 cursor-pointer' icon="carbon:user-filled" color="black" width="30" height="40"/>
+                        <Icon onClick={props.setSignIn} id='userButton' className='mb-1 cursor-pointer' icon="carbon:user-filled" color="black" width="30" height="40"/>
                     </div>
                 </div>
                 <span onClick={props.setSearch}  className='input-header flex h-10 cursor-pointer  items-center justify-between py-1 px-3'>
