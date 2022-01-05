@@ -23,8 +23,8 @@ export const getTrendingCoins = async () => {
     let response = await axios.get('https://api.coingecko.com/api/v3/search/trending')
     return response.data
 }
-export const getHistoricalMarketData = async (id) => {
-    let response = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}/market_chart/range?vs_currency=usd&from=1609421587&to=1640957587`)
+export const getHistoricalMarketData = async (id,days = 1) => {
+    let response = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`)
     return response.data
 }
 export const getExchanges = async () => {

@@ -1,4 +1,4 @@
-import { HashRouter,Route,Routes,  useLocation,useNavigate,useParams} from "react-router-dom";
+import { Route,Routes,  useLocation,useNavigate,useParams} from "react-router-dom";
 import Header from "./components/page/Header";
 import Home from "./components/page/Home";
 import Portfolio from "./components/page/Portfolio";
@@ -6,7 +6,7 @@ import Sidebar from "./components/page/Sidebar";
 import { useState,useEffect } from "react";
 import Coin from "./components/page/CoinPage";
 import Footer from "./components/page/Footer";
-import {getCoinMarkets,getTrendingCoins,getCategories,getExchanges} from './components/services/CoinServices'
+import {getCoinMarkets,getTrendingCoins,getCategories} from './components/services/CoinServices'
 import Search from "./components/page/Search";
 import SignIn from "./components/page/SignIn";
 import { initFirebaseAuth } from "./components/services/firebaseServices";

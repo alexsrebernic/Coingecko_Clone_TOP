@@ -7,7 +7,11 @@ import ChartCoin from "./ChartCoin"
 const CoinPage = (props) => {
     let [amountCoin,setAmountCoin] = useState("")
     let [amountUSD,setAmountUSD] = useState("")
-    
+    let [dateOption,setDateOption] = useState(1)
+    const handleDate = (date) => {
+        setDateOption(date)
+    }
+    console.log(dateOption)
     const handleAmountCoin = (event) => {
         setAmountCoin(event.target.value)
 
@@ -134,8 +138,29 @@ const CoinPage = (props) => {
                     </div>
                 </div>
             </div>
-                <div>
-                    <ChartCoin id={id}/>
+                <div className="w-full  py-7">
+                    <div className="flex flex-col">
+                        <div>
+                            <h1 className="text-2xl font-bold">{coin.name} ({coin.symbol.toUpperCase()}) Price Chart</h1>
+                        </div>
+                        <div className="my-5">
+                            <div className="inline-flex border   rounded">
+                                <div className="ml-2 p-2 cursor-pointer" value='1' onClick={() => handleDate(1)}>24h</div>
+                                <div className="ml-2 p-2 cursor-pointer border-l" onClick={() => handleDate(7)} value='7'>7d</div>
+                                <div className="ml-2 p-2 cursor-pointer border-l" onClick={() => handleDate(14)}value='14'>14d</div>
+                                <div className="ml-2 p-2 cursor-pointer border-l" onClick={() => handleDate(30)} value='30'>30d</div>
+                                <div className="ml-2 p-2 cursor-pointer border-l" onClick={() => handleDate(90)} value='90'>90d</div>
+                                <div className="ml-2 p-2 cursor-pointer border-l" onClick={() => handleDate(180)}value='180'>180d</div>
+                                <div className="ml-2 p-2 cursor-pointer border-l" onClick={() => handleDate(365)} value='365'>1y</div>
+                                <div className="ml-2 p-2 cursor-pointer border-l" onClick={() => handleDate("max")} value='max'>Max</div>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div className="flex items-center justify-start h-80 mb-72">
+                        <ChartCoin  date={dateOption} id={id}/>
+                    </div>
                 </div>
             </div>
         ):(
