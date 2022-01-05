@@ -12,7 +12,6 @@ const TablePortfolio = (props) => {
     let array = []
     useEffect(() => {
         store.subscribe((data) =>{
-            console.log(store.getState().user.uid)
             setUidUser(store.getState().user.uid)
             setArrayOfFavorites(store.getState().user.arrayOfFavouriteCoins)
         } )
@@ -70,7 +69,7 @@ const TablePortfolio = (props) => {
                                         {props.coins.map((object,index) => {
                                             if(array[index]){
                                                 return(
-                                                    <tr>
+                                                    <tr key={index}>
                                                 <td >
                                                 <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer hidden" icon="akar-icons:star" width="15" height="15" />
                                                                 <Icon className="cursor-pointer"  onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" />

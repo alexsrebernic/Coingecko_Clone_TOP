@@ -11,7 +11,6 @@ const CoinPage = (props) => {
     const handleDate = (date) => {
         setDateOption(date)
     }
-    console.log(dateOption)
     const handleAmountCoin = (event) => {
         setAmountCoin(event.target.value)
 
