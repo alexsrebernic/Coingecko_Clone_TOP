@@ -9,21 +9,21 @@ const TableHome =  (props) => {
     const [uid,setUidUser] = useState(null)
     const [arrayOfFavorites,setArrayOfFavorites] = useState([])
     let [coinsSelected,setCoinsSelected] = useState([])
+    let array = []
     useEffect(() => {
         store.subscribe((data) =>{
             setUidUser(store.getState().user.uid)
             setArrayOfFavorites(store.getState().user.arrayOfFavouriteCoins)
         } )
-        for (let l = 0 ; l < props.coins.length ; l++){
-            let array = []
-            arrayOfFavorites.some((name) => {
-                return setCoinsSelected((prevState) => { return prevState.push(name === props.coins[l].id)})
-            })
-            console.log(array)
-        setCoinsSelected(array)
-
-        }
     },)
+      for (let l = 0 ; l < props.coins.length ; l++){
+            array.push(arrayOfFavorites.some((name) => {
+                return name === props.coins[l].id
+                    
+            }))
+          
+        }
+        console.log(array)
     const favoriteCoin = (e) => {
         let coindId = e.target.id.substr(-8,8)
         if(coindId !== "selected"){
@@ -82,26 +82,20 @@ const TableHome =  (props) => {
                                             ):(
                                             <div>
 
-                                            {arrayOfFavorites !== null?(
+                                            {array !== null?(
                                                 <div>
-
-                                                {arrayOfFavorites.map(coinName => {
-                                                    if(coinName === object.id){
-                                                        return(
-                                                            <div className="w-full">
+                                                {array[index]?(
+                                                    <div className="w-full">
                                                                 <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer hidden" icon="akar-icons:star" width="15" height="15" />
                                                                 <Icon className="cursor-pointer"  onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" />
                                                             </div>
-                                                        )
-                                                    } else {
-                                                        return(
-                                                            <div>
+                                                        
+                                                ):(
+                                                    <div>
                                                             <Icon id={object.id} onClick={favoriteCoin} className="cursor-pointer" icon="akar-icons:star" width="15" height="15" />
                                                             <Icon className="hidden cursor-pointer" onClick={favoriteCoin} id={object.id + "selected"} icon="bi:star-fill" color="#f0bf3c" />
                                                             </div>
-                                                        )
-                                                    }
-                                                })}
+                                                )}
                                                 </div>
                                             ):(
                                                 
