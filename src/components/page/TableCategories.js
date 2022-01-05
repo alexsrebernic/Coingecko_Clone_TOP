@@ -1,11 +1,8 @@
 import { Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { separator } from "../../App"
 const TableCategories =  (props) => {
-    function separator(numb) {
-        var str = numb.toString().split(".");
-        str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return str.join(".");
-    }
+   
     return (
        
             <div className="coingecko-table">

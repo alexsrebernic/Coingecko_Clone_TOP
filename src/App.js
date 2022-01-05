@@ -1,4 +1,4 @@
-import { HashRouter,Route,Routes } from "react-router-dom";
+import { HashRouter,Route,Routes,  useLocation,useNavigate,useParams} from "react-router-dom";
 import Header from "./components/page/Header";
 import Home from "./components/page/Home";
 import Portfolio from "./components/page/Portfolio";
@@ -11,6 +11,27 @@ import Search from "./components/page/Search";
 import SignIn from "./components/page/SignIn";
 import { initFirebaseAuth } from "./components/services/firebaseServices";
 import Categories from "./components/page/Categories";
+export  function separator(numb) {
+  var str = numb.toString().split(".");
+  str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return str.join(".");
+}
+
+export function withRouter(Component) {
+  function ComponentWithRouterProp(props) {
+    let location = useLocation();
+    let navigate = useNavigate();
+    let params = useParams();
+    return (
+      <Component
+        {...props}
+        router={{ location, navigate, params }}
+      />
+    );
+  }
+
+  return ComponentWithRouterProp;
+}
 function App() {
   const [isSideBarDisplaying,setSideBarDisplay] = useState(false)
   const [isSearchDisplaying,setSearchDisplay] = useState(false)
@@ -18,7 +39,6 @@ function App() {
   const [coinsMarket,setCoinMarket] = useState([])
   const [trendingCoins,setTrendingCoins] = useState([])
   const [categories,setCategories] = useState([])
-  const [exchanges,setExchanges] = useState([])
 
 
   const setSearch = () => {
@@ -78,34 +98,36 @@ function App() {
   },[isSideBarDisplaying,isSearchDisplaying,iSignInDisplaying])
   useEffect(() => {
     (async() => {
-      Promise.all([getTrendingCoins(),getCoinMarkets(),getExchanges(),getCategories()]).then((data) => {
+      Promise.all([getTrendingCoins(),getCoinMarkets(),getCategories()]).then((data) => {
       setTrendingCoins(data[0])
       setCoinMarket(data[1])
-      setExchanges(data[2])
-      setCategories(data[3])
-        
+      setCategories(data[2])
       })
     })()
+    return (() => {
+      setTrendingCoins([])
+      setCoinMarket([])
+      setCategories([])
+    })
   },[])
    initFirebaseAuth()
   return (
     <div id="app" >
-    <HashRouter>
     <SignIn  setSignIn={setSignIn}/>
     <Search trendingCoins={trendingCoins} coins={coinsMarket} setSearch={setSearch}/>
     <Sidebar setSideBar={setSideBar}/>
     <Header trendingCoins={trendingCoins} coins={coinsMarket} setSignIn={setSignIn} setSearch={setSearch} setSideBar={setSideBar}/>
     <Routes>
+    
       <Route path="/" element={<Home coins={coinsMarket}/>}/>
-      <Route path="/portfolio" element={<Portfolio/>}/>
+      <Route path="/portfolio" element={<Portfolio coins={coinsMarket} />}/>
       <Route path="/categories" element={<Categories categories={categories}/>}/>
       <Route path="/coins/:id" element={<Coin coins={coinsMarket}/>}/>
 
     </Routes>
     <Footer/>
-    </HashRouter>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);

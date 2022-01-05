@@ -3,19 +3,20 @@ import { Icon } from "@iconify/react"
 import { Link } from "react-router-dom"
 import { setFavouriteCoinInDB,signInUser,removeFavouriteCoinInDB } from "../services/firebaseServices"
 import { useEffect, useState } from "react"
+import { separator } from "../../App"
+
 import store from "../redux/store"
-import { setArrayOfFavouriteCoins } from "../redux/UserInfo"
 const TableHome =  (props) => {
     const [uid,setUidUser] = useState(null)
     const [arrayOfFavorites,setArrayOfFavorites] = useState([])
-    let [coinsSelected,setCoinsSelected] = useState([])
     let array = []
     useEffect(() => {
         store.subscribe((data) =>{
             setUidUser(store.getState().user.uid)
             setArrayOfFavorites(store.getState().user.arrayOfFavouriteCoins)
         } )
-    },)
+       
+    })
       for (let l = 0 ; l < props.coins.length ; l++){
             array.push(arrayOfFavorites.some((name) => {
                 return name === props.coins[l].id
@@ -23,7 +24,6 @@ const TableHome =  (props) => {
             }))
           
         }
-        console.log(array)
     const favoriteCoin = (e) => {
         let coindId = e.target.id.substr(-8,8)
         if(coindId !== "selected"){
@@ -42,11 +42,7 @@ const TableHome =  (props) => {
         }
        
     }
-    function separator(numb) {
-        var str = numb.toString().split(".");
-        str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return str.join(".");
-    }
+   
     return (
        
             <div className="coingecko-table">

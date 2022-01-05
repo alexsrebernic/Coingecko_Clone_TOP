@@ -1,7 +1,7 @@
 import TableHome from "./TableHome"
 import Nav from "./Nav"
-
-const Home = (props) => {
+import { withRouter } from "../../App"
+const Home = (props,router) => {
     return(
         <div className=" md:mx-14  xl:mx-80" id="container-home">
             <div id="home" className="container px-5 w-full xl:px-0">
@@ -44,4 +44,4 @@ const Home = (props) => {
         </div>
     )
 }
-export default Home
+export default withRouter(Home)

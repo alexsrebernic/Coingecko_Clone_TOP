@@ -2,15 +2,12 @@ import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { Icon } from "@iconify/react"
 import { useEffect, useState } from "react"
+import { separator } from "../../App"
 import ChartCoin from "./ChartCoin"
 const CoinPage = (props) => {
     let [amountCoin,setAmountCoin] = useState("")
     let [amountUSD,setAmountUSD] = useState("")
-    function separator(numb) {
-        var str = numb.toString().split(".");
-        str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return str.join(".");
-    }
+    
     const handleAmountCoin = (event) => {
         setAmountCoin(event.target.value)
 

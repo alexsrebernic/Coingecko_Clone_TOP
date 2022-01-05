@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom"
 import { Icon } from "@iconify/react"
-import { Button } from "react-bootstrap"
-import { Table } from "react-bootstrap"
-const Portfolio = () => {
+import TablePortfolio from "./TablePortfolio"
+const Portfolio = (props) => {
     return(
         <div id="portfolio" className="xl:mx-80">
             <div className="filter-menu pt-4 pb-2">
@@ -75,28 +74,7 @@ const Portfolio = () => {
                  <hr ></hr>
 
                     <div className="table-responsive">
-                        <Table className="
-                        table text-sm 
-                        text-lg-normal 
-                         mb-0 h-12 xl:w-full">
-                            <thead>
-                                <tr>
-                                    <th className="pt-2 w-4"></th>
-                                    <th className="w-8 ">#</th>
-                                    <th className="w-20 text-left">Coin</th>
-                                    <th className="w-24 text-right">Price</th>
-                                    <th className="w-14">1h</th>
-                                    <th className="w-16">24h</th>
-                                    <th>7d</th>
-                                    <th>24h volume</th>
-                                    <th className="w-28">Mkt Cap</th>
-                                    <th className="w-34">Last 7 days</th>
-                                    <th>Holdings</th>
-                                    <th>PNL</th>
-
-                                </tr>
-                            </thead>
-                        </Table>
+                        <TablePortfolio coins={props.coins}/>
                     </div>
                  </div>
              </div>
