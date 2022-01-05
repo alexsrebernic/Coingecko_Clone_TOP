@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Coingecko_Clone_TOP%20/static/css/main.317fd1cb.css",
+    "main.js": "/Coingecko_Clone_TOP%20/static/js/main.63882747.js",
+    "static/media/8HhyujVSxqve4ffxvG3t_ip.bitcointalk.org.png": "/Coingecko_Clone_TOP%20/static/media/8HhyujVSxqve4ffxvG3t_ip.bitcointalk.org.a3b178db9f6951cb5ccb.png",
+    "index.html": "/Coingecko_Clone_TOP%20/index.html",
+    "main.317fd1cb.css.map": "/Coingecko_Clone_TOP%20/static/css/main.317fd1cb.css.map",
+    "main.63882747.js.map": "/Coingecko_Clone_TOP%20/static/js/main.63882747.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.317fd1cb.css",
+    "static/js/main.63882747.js"
+  ]
+}
