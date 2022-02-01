@@ -7,4 +7,6 @@ This is a mediocre clone of the Coingecko page made it with:
 - Tailwind
 - React Router
 - Chart.js.    
+
+![](coingecko-clone.gif)
 [LIVE SERVER](https://alexsrebernic.github.io/Coingecko_Clone_TOP/#/)
